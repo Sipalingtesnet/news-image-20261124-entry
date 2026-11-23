@@ -113,15 +113,15 @@ def draw_newspaper():
     draw.text((margin + 27, ticker_y + (ticker_height // 2)), "ALSO", fill=c_white, font=font_ticker_title, anchor="mm")
 
     also_text = (
-        "Russian cargo ship on fire off Finland after attack in Gulf of Finland. "
-        "Lisbon trade union CGTP plans rally outside Assembly ahead of 2027 budget vote. "
-        "India vs NZ 1st Test ends in draw (Rishabh Pant 128). "
-        "Max Verstappen wins Las Vegas GP. "
-        "Bangladesh vows to arrest Sheikh Hasina if she returns. "
-        "China announces 2030 elderly care and childcare targets. "
-        "South Korea nominates new Foreign Minister and intelligence chief. "
-        "Armenia proposes new constitution for peace talks. "
-        "India Sensex falls 1,484 points."
+        "Russian ship ablaze off Finland. "
+        "Lisbon rally ahead of budget vote. "
+        "India-NZ Test drawn (Pant 128). "
+        "Verstappen wins Las Vegas GP. "
+        "Bangladesh to arrest Hasina if she returns. "
+        "China 2030 care goals. "
+        "South Korea reshuffle. "
+        "Armenia constitution. "
+        "Sensex -1,484 pts."
     )
 
     ticker_box_w = content_width - 64
@@ -192,9 +192,15 @@ def draw_art(draw, art_type, box):
         dx, dy = cx + 12, cy - 20
         dw, dh = 50, 58
         draw.rectangle([dx, dy, dx + dw, dy + dh], fill=(255, 255, 255), outline=(120, 120, 120), width=1)
-        draw.line([dx + 6, dy + 6, dx + dw - 6, dy + dh - 6], fill=(200, 40, 30), width=3)
-        draw.line([dx + dw - 6, dy + 6, dx + 6, dy + dh - 6], fill=(200, 40, 30), width=3)
-        draw.text((dx + dw // 2, dy + dh // 2), "NO DEAL", fill=(180, 30, 30), font=ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 10), anchor="mm")
+        draw.line([dx + 6, dy + 6, dx + dw - 6, dy + dh - 6], fill=(220, 50, 40), width=2)
+        draw.line([dx + dw - 6, dy + 6, dx + 6, dy + dh - 6], fill=(220, 50, 40), width=2)
+        # Draw background patch behind text for 100% legibility
+        f_nd = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 10)
+        nd_box = draw.textbbox((0, 0), "NO DEAL", font=f_nd)
+        nd_w, nd_h = nd_box[2] - nd_box[0], nd_box[3] - nd_box[1]
+        nd_cx, nd_cy = dx + dw // 2, dy + dh // 2
+        draw.rectangle([nd_cx - nd_w//2 - 4, nd_cy - nd_h//2 - 2, nd_cx + nd_w//2 + 4, nd_cy + nd_h//2 + 2], fill=(255, 255, 255))
+        draw.text((nd_cx, nd_cy), "NO DEAL", fill=(180, 30, 30), font=f_nd, anchor="mm")
 
     elif art_type == "drone":
         ax1, ay1 = cx - 40, y1 + 30
